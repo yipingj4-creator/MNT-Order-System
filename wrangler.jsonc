@@ -1,0 +1,14 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "mnt-production-system",
+  "main": "cloudflare/worker.js",
+  "compatibility_date": "2026-07-15",
+  "assets": {
+    "directory": "./public-cloudflare",
+    "binding": "ASSETS",
+    "not_found_handling": "single-page-application"
+  },
+  "r2_buckets": [
+    { "binding": "FILES", "bucket_name": "mnt-production-files" }
+  ]
+}

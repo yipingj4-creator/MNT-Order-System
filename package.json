@@ -1,0 +1,17 @@
+{
+  "name": "mnt-sales-production-system",
+  "version": "1.0.0",
+  "private": true,
+  "description": "MNT C/T 系列销售生产审批系统",
+  "scripts": {
+    "dev": "node tests/server.mjs",
+    "build": "node scripts/build-netlify.mjs",
+    "sites:build": "node scripts/build-sites-static.mjs",
+    "cloudflare:build": "node scripts/build-cloudflare.mjs",
+    "cloudflare:deploy": "npm run cloudflare:build && wrangler deploy",
+    "test": "node tests/validate.mjs"
+  },
+  "dependencies": { "@netlify/blobs": "^10.0.0" },
+  "devDependencies": { "wrangler": "^4.0.0" },
+  "engines": { "node": ">=20" }
+}
