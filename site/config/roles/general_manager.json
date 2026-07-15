@@ -1,0 +1,1 @@
+{"id":"general_manager","name":"总经理","icon":"☆","canCreate":false,"canEditCurrent":true,"canApprove":true,"canPrint":false,"canViewBackup":false,"scope":"all","menus":["dashboard","orders","products"]}
