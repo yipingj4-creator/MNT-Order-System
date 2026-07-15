@@ -1,0 +1,1 @@
+{"id":"finance_director","name":"财务总监","icon":"¥","canCreate":false,"canEditCurrent":true,"canApprove":true,"canPrint":false,"canViewBackup":false,"scope":"all","menus":["dashboard","orders","products"]}
