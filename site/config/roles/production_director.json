@@ -1,0 +1,1 @@
+{"id":"production_director","name":"生产总监","icon":"◇","canCreate":false,"canEditCurrent":true,"canApprove":true,"canPrint":false,"canViewBackup":false,"scope":"all","menus":["dashboard","orders","products"]}
