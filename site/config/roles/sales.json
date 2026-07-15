@@ -1,0 +1,1 @@
+{"id":"sales","name":"销售","icon":"◫","canCreate":true,"canEditOwn":true,"canApprove":true,"canPrint":false,"canViewBackup":false,"scope":"own","menus":["dashboard","orders","products"]}
