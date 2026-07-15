@@ -1,0 +1,8 @@
+.cover-logo{position:relative;z-index:1;width:min(620px,82%);height:auto;border-radius:18px;box-shadow:0 18px 45px rgba(0,0,0,.2)}
+.mobile-logo{display:block;width:220px;max-width:100%;height:auto;margin-bottom:28px}
+.sidebar-logo{width:48px;height:42px;object-fit:cover;object-position:left;border-radius:8px;background:#fff}
+.sidebar-brand-full{display:block;width:100%;height:auto;max-height:64px;object-fit:contain;object-position:left center;border-radius:9px;background:#fff}
+.form-help{font-size:11px;margin:-4px 0 14px}.tool-matrix{border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.tool-row{display:grid;grid-template-columns:1.25fr .55fr 1fr .55fr 1fr;align-items:center;border-bottom:1px solid var(--line);min-height:44px}.tool-row:last-child{border-bottom:0}.tool-row>*{margin:0;padding:9px 12px}.tool-row select,.tool-row input{margin:4px 8px;width:calc(100% - 16px)}.tool-head{background:#eef4f6;font-size:11px}.detail-tools{margin:16px 20px 20px}.detail-tools b{text-align:center;font-size:12px}
+.attachment-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:18px}.attachment-card{border:1px solid var(--line);border-radius:10px;padding:14px;display:flex;flex-direction:column;gap:8px}.attachment-card span,.attachment-card small{font-size:10px;color:var(--muted)}.attachment-card strong{font-size:12px;overflow-wrap:anywhere}.attachment-card button{align-self:flex-start;margin-top:auto}
+@media(max-width:900px){.attachment-grid{grid-template-columns:1fr}.cover-logo{width:100%}.tool-matrix{overflow-x:auto}.tool-row{min-width:820px}}
