@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="MNT 销售生产审批系统" />
+    <title>MNT 销售生产系统</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="/extra.css" />
+  </head>
+  <body>
+    <div id="toast" class="toast" aria-live="polite"></div>
+
+    <main id="login-view" class="login-shell">
+      <section class="login-brand">
+        <img class="cover-logo" src="/assets/meinaite-logo.jpg" alt="MNT MEINAITE 美耐特" />
+        <div>
+          <p class="eyebrow">MNT · PRODUCTION FLOW</p>
+          <h1>从订单确认，到准时交付。</h1>
+        </div>
+      </section>
+      <section class="login-panel">
+        <form id="login-form" class="login-card">
+          <img class="mobile-logo" src="/assets/meinaite-logo.jpg" alt="MNT MEINAITE 美耐特" />
+          <p class="eyebrow">SECURE ACCESS</p>
+          <h2>登录工作台</h2>
+          <p class="muted">请选择身份并输入独立账号密码</p>
+          <label>所属模块<select id="role-select" required></select></label>
+          <label>账号<select id="user-select" required></select></label>
+          <label>密码<div class="password-wrap"><input id="password" type="password" autocomplete="current-password" placeholder="请输入密码" required /><button id="toggle-password" type="button" aria-label="显示密码">显示</button></div></label>
+          <p id="login-error" class="form-error" role="alert"></p>
+          <button class="primary wide" type="submit">进入系统 <span>→</span></button>
+        </form>
+      </section>
+    </main>
+
+    <main id="app-view" class="app-shell hidden">
+      <aside class="sidebar">
+        <div class="sidebar-brand"><img class="sidebar-brand-full" src="/assets/meinaite-logo.jpg" alt="MNT MEINAITE 美耐特" /></div>
+        <nav id="nav"></nav>
+        <div class="sidebar-foot"><div class="avatar" id="avatar"></div><div><strong id="side-user"></strong><span id="side-role"></span></div><button id="logout" title="退出">↗</button></div>
+      </aside>
+      <section class="workspace">
+        <header class="topbar">
+          <div><button id="mobile-menu" class="icon-button">☰</button><p class="breadcrumb">销售生产系统 / <span id="page-name">工作台</span></p><h2 id="page-title">工作台</h2></div>
+          <div class="top-actions"><span id="today"></span><button id="new-order" class="primary hidden">＋ 新建生产单</button></div>
+        </header>
+        <div id="content" class="content"></div>
+      </section>
+    </main>
+
+    <dialog id="order-dialog" class="modal order-modal"><div class="modal-head"><div><p class="eyebrow">PRODUCTION ORDER</p><h3 id="order-dialog-title">新建生产单</h3></div><button class="icon-button close-dialog">×</button></div><form id="order-form"></form></dialog>
+    <dialog id="confirm-dialog" class="modal compact"><div class="modal-head"><h3 id="confirm-title">确认操作</h3><button class="icon-button close-dialog">×</button></div><p id="confirm-copy"></p><label id="confirm-note-wrap">备注<textarea id="confirm-note" rows="3" placeholder="填写审批意见或修改原因"></textarea></label><div class="dialog-actions"><button class="secondary close-dialog">取消</button><button id="confirm-action" class="primary">确认</button></div></dialog>
+
+    <section id="print-sheet" class="print-sheet"></section>
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>
