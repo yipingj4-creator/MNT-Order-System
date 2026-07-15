@@ -1,0 +1,1 @@
+{"id":"production_assistant","name":"生产助理","icon":"✓","canCreate":false,"canEditCurrent":true,"canApprove":true,"canPrint":true,"canViewBackup":false,"scope":"all","menus":["dashboard","orders","products"]}
