@@ -1,0 +1,1 @@
+{"id":"backup_database","name":"备份数据库","icon":"▣","canCreate":false,"canEditCurrent":false,"canApprove":false,"canPrint":false,"canViewBackup":true,"scope":"all","menus":["dashboard","orders","backup"]}
