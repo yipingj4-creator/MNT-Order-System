@@ -1,0 +1,3 @@
+[
+  { "id": "example", "name": "示例账号", "role": "sales", "password": "请在 Netlify 环境变量中配置" }
+]
