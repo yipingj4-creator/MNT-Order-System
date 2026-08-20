@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="MNT 销售生产审批系统" />
     <title>MNT 销售生产系统</title>
-    <link rel="stylesheet" href="/styles.css" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <link rel="stylesheet" href="/styles.css?v=20260817-progress-final" />
+    <link rel="stylesheet" href="/print-enhanced.css?v=20260728-print1" />
     <link rel="stylesheet" href="/extra.css" />
   </head>
   <body>
@@ -51,8 +53,9 @@
 
     <dialog id="order-dialog" class="modal order-modal"><div class="modal-head"><div><p class="eyebrow">PRODUCTION ORDER</p><h3 id="order-dialog-title">新建生产单</h3></div><button class="icon-button close-dialog">×</button></div><form id="order-form"></form></dialog>
     <dialog id="confirm-dialog" class="modal compact"><div class="modal-head"><h3 id="confirm-title">确认操作</h3><button class="icon-button close-dialog">×</button></div><p id="confirm-copy"></p><label id="confirm-note-wrap">备注<textarea id="confirm-note" rows="3" placeholder="填写审批意见或修改原因"></textarea></label><div class="dialog-actions"><button class="secondary close-dialog">取消</button><button id="confirm-action" class="primary">确认</button></div></dialog>
+    <dialog id="progress-dialog" class="modal progress-modal"><div class="modal-head"><div><p class="eyebrow">PRODUCTION PROGRESS</p><h3 id="progress-dialog-title">生产进度</h3><p id="progress-order-copy" class="muted"></p></div><button class="icon-button close-dialog">×</button></div><form id="progress-entry-form" class="progress-entry-form"><h4>今日打卡</h4><label>今日状态<select id="progress-type"><option value="progress">有进展</option><option value="unchanged">不变</option></select></label><label id="progress-text-wrap">进展内容<textarea id="progress-text" rows="3" placeholder="请输入今天完成了什么、当前做到哪一步" required></textarea></label><button class="primary" type="submit">保存今日打卡</button></form><section class="progress-history-section"><h4>全部进展记录</h4><div id="progress-history"></div></section></dialog>
 
     <section id="print-sheet" class="print-sheet"></section>
-    <script type="module" src="/app.js"></script>
+    <script type="module" src="/app.js?v=20260817-progress-final"></script>
   </body>
 </html>
