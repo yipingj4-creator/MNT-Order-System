@@ -7,5 +7,22 @@ async function tokenFor(user, env) { const body = encode(JSON.stringify({ id: us
 async function authenticate(request, env) { const token = (request.headers.get("authorization") || "").replace(/^Bearer\s+/i, ""); const [body, supplied] = token.split("."); if (!body || !supplied || !env.AUTH_SECRET || await sign(body, env.AUTH_SECRET) !== supplied) return null; try { const payload = JSON.parse(decode(body)); return payload.exp >= Date.now() ? getUsers(env).find((u) => u.id === payload.id) || null : null; } catch { return null; } }
 const safePart = (value) => /^[a-zA-Z0-9_-]{1,80}$/.test(value || "") ? value : null;
 async function login(request, env) { if (!env.AUTH_SECRET || !env.MNT_USERS_JSON) return new Response("登录服务未配置", { status: 503 }); let input; try { input = await request.json(); } catch { return new Response("请求无效", { status: 400 }); } const user = getUsers(env).find((u) => u.id === input.id && u.password === input.password); if (!user) return new Response("账号或密码不正确", { status: 401 }); const { password, ...safeUser } = user; return Response.json({ token: await tokenFor(user, env), user: safeUser }, { headers: { "cache-control": "no-store" } }); }
+async function orders(request, env) {
+  const user = await authenticate(request, env);
+  if (!user) return new Response("账号验证失败", { status: 401 });
+  const key = "_database/orders-v2";
+  if (request.method === "GET") {
+    const value = await env.FILES.get(key, { type: "json" });
+    return Response.json({ orders: Array.isArray(value) ? value : [] }, { headers: { "cache-control": "no-store" } });
+  }
+  if (request.method === "PUT") {
+    let input;
+    try { input = await request.json(); } catch { return new Response("订单数据无效", { status: 400 }); }
+    if (!Array.isArray(input.orders)) return new Response("订单数据无效", { status: 400 });
+    await env.FILES.put(key, JSON.stringify(input.orders), { metadata: { updatedBy: user.id, updatedAt: new Date().toISOString() } });
+    return Response.json({ ok: true, count: input.orders.length });
+  }
+  return new Response("Method not allowed", { status: 405 });
+}
 async function files(request, env, url) { const user = await authenticate(request, env); if (!user) return new Response("账号验证失败", { status: 401 }); const orderId = safePart(url.searchParams.get("orderId")); const category = safePart(url.searchParams.get("category")); if (!orderId || !["logo", "appearance", "quotation"].includes(category)) return new Response("附件参数无效", { status: 400 }); if (category === "quotation" && !QUOTATION_ROLES.includes(user.role)) return new Response("当前账号无权查看报价文件", { status: 403 }); const key = `${orderId}/${category}`; if (request.method === "DELETE") { if (user.role !== "sales") return new Response("只有销售可以删除附件", { status: 403 }); await env.FILES.delete(key); return Response.json({ ok: true }); } if (request.method === "POST") { let name = request.headers.get("x-file-name") || "attachment"; try { name = decodeURIComponent(name); } catch {} const data = await request.arrayBuffer(); await env.FILES.put(key, data, { metadata: { name, type: request.headers.get("content-type") || "application/octet-stream", uploadedBy: user.id } }); return Response.json({ ok: true, name }); } if (request.method === "GET") { const object = await env.FILES.getWithMetadata(key, { type: "arrayBuffer" }); if (!object?.value) return new Response("附件不存在", { status: 404 }); return new Response(object.value, { headers: { "content-type": object.metadata?.type || "application/octet-stream", "content-disposition": `attachment; filename*=UTF-8''${encodeURIComponent(object.metadata?.name || "attachment")}` } }); } return new Response("Method not allowed", { status: 405 }); }
-export default { async fetch(request, env) { const url = new URL(request.url); if (url.pathname === "/api/login" && request.method === "POST") return login(request, env); if (url.pathname === "/api/files") return files(request, env, url); return env.ASSETS.fetch(request); } };
+export default { async fetch(request, env) { const url = new URL(request.url); if (url.pathname === "/api/login" && request.method === "POST") return login(request, env); if (url.pathname === "/api/orders") return orders(request, env); if (url.pathname === "/api/files") return files(request, env, url); const response = await env.ASSETS.fetch(request); const headers = new Headers(response.headers); if (url.pathname === "/" || url.pathname.endsWith(".html") || url.pathname.endsWith(".js")) headers.set("cache-control", "no-store, no-cache, must-revalidate"); return new Response(response.body, { status: response.status, statusText: response.statusText, headers }); } };
